@@ -3,50 +3,50 @@ package gulyas.myCalculator.myCalculator.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GasStation {		
+public class CapacityGroup {
 
-	public GasStation(String stationCode) {
-		
-		this.stationCode = stationCode;
+	public CapacityGroup(String identifier) {
+
+		this.identifier = identifier;
 		this.items = new ArrayList<CapacityItem>();
-		
+
 	}
 
-	String stationCode;
+	String identifier;
 	List<CapacityItem> items;
 
-	public String getStationCode() {
-		return stationCode;
+	public String getIdentifier() {
+		return identifier;
 	}
-	public void setStationCode(String stationCode) {
-		this.stationCode = stationCode;
+
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
 	}
 
 	public List<CapacityItem> getItems() {
 		return items;
 	}
+
 	public void setItems(List<CapacityItem> items) {
 		this.items = items;
 	}
-	
-	public void addItem(CapacityItem capacityItem){
+
+	public void addItem(CapacityItem capacityItem) {
 		items.add(capacityItem);
 	}
-	
-	public double getFee(){
+
+	public double getFee() {
 		double sum = 0;
 		for (CapacityItem capacityItem : items) {
-			sum+=capacityItem.getItemFee();			
+			sum += capacityItem.getItemFee();
 		}
 		return sum;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "GasStation [stationCode=" + stationCode + ", items=" + items
+		return "CapacityGroup [identifier=" + identifier + ", items=" + items
 				+ "]";
 	}
-	
-	
 
 }
