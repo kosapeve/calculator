@@ -11,12 +11,13 @@ import java.util.List;
 import au.com.bytecode.opencsv.CSVReader;
 
 public final class CsvParser {	 
+	
 	 public List<String[]> parse(String inputFileName){	 
 	
 		CSVReader reader;
 		 
 		try {
-			reader = new CSVReader(new FileReader(inputFileName));	
+			reader = new CSVReader(new FileReader(inputFileName),';');				
 			 String[] header = reader.readNext();
 			 List<String[]> myEntries = reader.readAll();
 			 return myEntries;

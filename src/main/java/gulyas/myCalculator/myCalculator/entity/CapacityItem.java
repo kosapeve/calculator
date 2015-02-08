@@ -29,7 +29,7 @@ public class CapacityItem {
 	double price;
 	
 	
-	public CapacityItem(String location, String validityStart,
+	public CapacityItem(String locationCode, String validityStart,
 			String  validityEnd, String type, int quantityPerDay,
 			int quantityPerHour) {
 		
@@ -38,7 +38,7 @@ public class CapacityItem {
 			NumberFormat format = NumberFormat.getInstance(Locale.FRANCE);
 			Number priceNumber;
 			
-			this.locationCode = location;
+			this.locationCode = locationCode;
 			this.validityStart = sdf.parse(validityStart);
 			this.validityEnd = sdf.parse(validityEnd);
 			this.type = type;
@@ -108,7 +108,7 @@ public class CapacityItem {
 		return this.price;
 	}
 	
-	private double getTypePrecent(){
+	public double getTypePrecent(){
 		double typePrecent=0;
 		if(type.equals("M0")){
 			typePrecent=1;

@@ -1,8 +1,10 @@
 package gulyas.myCalculator.myCalculator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import gulyas.myCalculator.myCalculator.entity.CapacityItem;
+import gulyas.myCalculator.myCalculator.entity.GasStation;
 
 
 
@@ -14,26 +16,48 @@ import gulyas.myCalculator.myCalculator.entity.CapacityItem;
 public class App 
 {
     public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+    {        
         CsvParser csvp= new CsvParser();
-        List<String[]> records =csvp.parse("asd.csv");
+        List<CapacityItem> capacityItems= new ArrayList<CapacityItem>();
+        List<String[]> records =csvp.parse("test_data.csv");
+        List<String> pointNames= new ArrayList<String>();
+        List<GasStation> gasStations = new ArrayList<GasStation>();
+        double sum=0;
+        
+        //Parse CSV
         for (String[] record : records) {
-			
+			CapacityItem item= new CapacityItem(record[0], record[1], 
+					record[2], record[3], Integer.parseInt(record[4]), 
+					Integer.parseInt(record[5]));
+			if(!pointNames.contains(record[0])){
+			pointNames.add(record[0]);	
+			}			
+			capacityItems.add(item);					
 		}
         
-        CapacityItem capacityItem= new CapacityItem("KAABA00011GN", 
-        	"2012-12-01", "2012-12-31", "M10", 100000, 5000);
+        // Create Points
+        for (String stationCode : pointNames) {
+			gasStations.add(new GasStation(stationCode));
+		}
         
-        CapacityItem capacityItem2= new CapacityItem("KAABA00011GN", 
-            	"2012-05-01", "2012-05-31", "M10", 100000, 5000);
+        // Pair station and item
+        for (CapacityItem item : capacityItems) {
+			for (GasStation gasStation : gasStations) {
+				if(gasStation.getStationCode().equals(item.getLocationCode())){
+					gasStation.addItem(item);
+				}
+			}
+		}
         
-        CapacityItem capacityItem3= new CapacityItem("GEDRAVAS1IIN", 
-            	"2012-05-01", "2012-05-31", "M10", 100000, 5000);
-        
-        System.out.println(capacityItem.getItemFee());
-        System.out.println(capacityItem2.getItemFee());
-        System.out.println(capacityItem3.getItemFee());
+        //Output        
+        for (GasStation gasStation : gasStations) {
+        	double fee=gasStation.getFee();
+        	sum+=fee;
+			System.out.println("Pont:"+gasStation.getStationCode()
+					+"; Összeg:"+fee);
+		}
+        System.out.println("Összesen:"+sum);
+    
         
     }
     
