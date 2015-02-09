@@ -41,9 +41,9 @@ public class CapacityItem {
 			this.quantityPerDay = quantityPerDay;
 			this.quantityPerHour = quantityPerHour;
 
-			this.locationType = getPropertiValue("points.properties",
+			this.locationType = getPropertyValue("points.properties",
 					locationCode);
-			priceNumber = format.parse(getPropertiValue("cost.properties",
+			priceNumber = format.parse(getPropertyValue("cost.properties",
 					locationType));
 			this.price = priceNumber.doubleValue();
 
@@ -152,7 +152,7 @@ public class CapacityItem {
 		return Math.round(fee*10.0)/10.;
 	}
 
-	private String getPropertiValue(String propName, String key) {
+	private String getPropertyValue(String propName, String key) {
 		try {
 			File file = new File(propName);
 			FileInputStream fileInput = new FileInputStream(file);
